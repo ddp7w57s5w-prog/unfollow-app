@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>脫粉聲明書 ✦</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;700;900&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   :root {
@@ -29,7 +29,8 @@
     min-height: 100%;
   }
   body {
-    font-family: 'Noto Sans TC', sans-serif, 'Noto Sans CJK TC';
+    /* 在字體清單最後加入 'Noto Color Emoji' */
+    font-family: 'Noto Sans TC', sans-serif, 'Noto Sans CJK TC', 'Noto Color Emoji';
     background: transparent;
     color: var(--text);
     min-height: 100vh;
@@ -119,7 +120,6 @@
   .bubble {
     font-size: 13px;
     padding: 12px 18px;
-    border-box: 1px solid rgba(0, 0, 0, 0.2);
     max-width: 90%;
     line-height: 1.55;
     position: relative;
@@ -133,7 +133,6 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    /* 白底用 pseudo element */
     position: relative;
   }
   .bubble-left::before {
@@ -205,7 +204,7 @@
     border-radius: 16px;
     font-family: 'Noto Sans TC', sans-serif;
     font-size: 16px;
-    color: var(--text);
+    color: #B794C6;
     background: #faf8ff;
     outline: none;
     transition: border-color 0.2s;
@@ -335,6 +334,8 @@
     position: relative;
     border: 2px solid #ede0ff;
     overflow: hidden;
+    /* 強制內部使用 Emoji 字體 */
+    font-family: 'Noto Sans TC', 'Noto Serif TC', 'Noto Color Emoji', serif;
   }
   #certificate::before {
     content: '';
@@ -543,7 +544,10 @@
     color: var(--text-light);
   }
 
-  /* no-avatar fallback */
+  /* no-avatar fallback - 加入 Noto Color Emoji */
+  .avatar-placeholder, .idol-placeholder {
+    font-family: 'Noto Color Emoji', sans-serif;
+  }
   .avatar-placeholder {
     width: 60px; height: 60px;
     border-radius: 50%;
@@ -567,13 +571,11 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="site-header">
   <div class="site-logo">✦ 脫粉聲明書產生器</div>
   <button class="ethics-badge" onclick="showEthics()">道德認證</button>
 </header>
 
-<!-- HERO -->
 <div class="hero">
   <h1 class="hero-title">脫粉，要有儀式感 ✦</h1>
   <p class="hero-subtitle" id="hero-sub">讓每一次告別都值得被記念</p>
@@ -583,18 +585,13 @@
   </div>
 </div>
 
-<!-- FORM -->
 <div id="form-area">
-
-  <!-- 聲明人 -->
   <div class="form-section">
     <div class="section-title">聲明人</div>
-
     <div class="field-group">
       <label class="field-label">聲明人暱稱 <span class="required">*</span></label>
       <input type="text" id="user-name" placeholder="請輸入你的暱稱">
     </div>
-
     <div class="field-group">
       <label class="field-label">脫粉日期時間 <span class="required">*</span></label>
       <div class="datetime-wrap">
@@ -602,7 +599,6 @@
         <button class="reset-btn" onclick="resetDateTime()">此時此刻</button>
       </div>
     </div>
-
     <div class="field-group">
       <label class="field-label">大頭照（選填）</label>
       <div class="photo-upload" id="user-photo-wrap">
@@ -616,15 +612,12 @@
     </div>
   </div>
 
-  <!-- 脫粉對象 -->
   <div class="form-section">
     <div class="section-title">脫粉對象</div>
-
     <div class="field-group">
       <label class="field-label">脫粉的團體／藝人名稱 <span class="required">*</span></label>
       <input type="text" id="idol-name" placeholder="例：某某偶像團體">
     </div>
-
     <div class="field-group">
       <label class="field-label">團體照片（選填）</label>
       <div class="photo-upload" id="idol-photo-wrap">
@@ -636,7 +629,6 @@
         <img id="idol-photo-preview" class="photo-preview" alt="預覽">
       </div>
     </div>
-
     <div class="field-group">
       <label class="field-label">脫粉理由（選填）</label>
       <div class="tags-wrap" id="reason-tags">
@@ -647,24 +639,19 @@
         <div class="tag" onclick="toggleTag(this)">理性脫粉</div>
       </div>
     </div>
-
     <div class="field-group">
       <label class="field-label">補充說明（選填）</label>
       <textarea id="extra-note" placeholder="可自行填寫脫粉理由、心路歷程或告別宣言…"></textarea>
     </div>
   </div>
-
 </div>
 
 <button class="generate-btn" onclick="generate()">✦ 生成脫粉說明書 ✦</button>
 
-<!-- RESULT -->
 <div class="result-section" id="result-section">
-
   <div id="certificate">
     <div class="cert-number" id="cert-number">No.000000</div>
     <div class="cert-title">脫 粉 聲 明 書</div>
-
     <div class="cert-person">
       <div id="cert-avatar-area"></div>
       <div class="cert-person-info">
@@ -672,36 +659,33 @@
         <div class="cert-person-name" id="cert-username"></div>
       </div>
     </div>
-
     <div class="cert-body">
       <div id="cert-idol-avatar-area"></div>
       茲聲明：本人自今日起，正式解除與<br>
       <span class="cert-idol-name" id="cert-idol-name"></span>
       之粉絲關係。本聲明一經發佈即刻生效，具完整道德效力，任何人不得以任何形式要求本人重返粉籍，亦不得對本人之脫粉行為提出異議。
     </div>
-
     <div class="cert-reason-section" id="cert-reason-section" style="display:none">
       <div class="cert-reason-label">脫粉理由</div>
       <div class="cert-reason-text" id="cert-reason-text"></div>
     </div>
-
     <div class="cert-footer">
       <div class="cert-footer-line">聲明日期：<span id="cert-date"></span></div>
       <div class="cert-footer-line">聲明人簽署：<span id="cert-sign"></span></div>
-      <div class="stamp">  <img src="seal.png" class="seal-img" onerror="this.src='https://api.iconify.design/emojione:v-sign.svg'">  </div>
+      <div class="stamp">
+        <img src="seal.png" class="seal-img" onerror="this.src='https://api.iconify.design/emojione:v-sign.svg'">
+      </div>
+    </div>
   </div>
-
   <p class="download-hint">右鍵 → 儲存圖片或是點擊下載按鈕</p>
   <button class="download-btn" onclick="downloadCert()">
     <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5z"/></svg>
     下載聲明書
   </button>
-
 </div>
 
 <div class="site-footer">✦ 脫粉聲明書產生器 · 讓每次告別都有儀式感 ✦</div>
 
-<!-- ETHICS MODAL -->
 <div class="modal-overlay" id="ethics-modal" onclick="closeEthics(event)">
   <div class="modal">
     <div class="modal-title">🌟 道德認證說明</div>
@@ -718,7 +702,6 @@
 </div>
 
 <script>
-  // ── INIT DATETIME ──
   function setNow() {
     const now = new Date();
     const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
@@ -727,7 +710,6 @@
   function resetDateTime() { setNow(); }
   setNow();
 
-  // ── PHOTO PREVIEW ──
   let userPhotoData = null;
   let idolPhotoData = null;
 
@@ -748,7 +730,6 @@
     reader.readAsDataURL(file);
   }
 
-  // ── TAGS ──
   function toggleTag(el) { el.classList.toggle('selected'); }
 
   function getSelectedTags() {
@@ -756,7 +737,6 @@
       .map(t => t.textContent).join('、');
   }
 
-  // ── FORMAT DATE ──
   function formatDate(val) {
     if (!val) return '';
     const d = new Date(val);
@@ -768,7 +748,6 @@
     return `${y}/${mo}/${day} ${h}:${m}`;
   }
 
-  // ── GENERATE ──
   function generate() {
     const userName = document.getElementById('user-name').value.trim();
     const idolName = document.getElementById('idol-name').value.trim();
@@ -778,20 +757,12 @@
     if (!userName) { alert('請輸入聲明人暱稱！'); return; }
     if (!idolName) { alert('請輸入脫粉對象名稱！'); return; }
 
-    // cert number
     document.getElementById('cert-number').textContent = 'No.' + String(Math.floor(100000 + Math.random() * 900000));
-
-    // username
     document.getElementById('cert-username').textContent = userName;
     document.getElementById('cert-sign').textContent = userName;
-
-    // idol name
     document.getElementById('cert-idol-name').textContent = `【 ${idolName} 】`;
-
-    // date
     document.getElementById('cert-date').textContent = formatDate(dateVal) || formatDate(new Date().toISOString().slice(0,16));
 
-    // user avatar
     const avatarArea = document.getElementById('cert-avatar-area');
     if (userPhotoData) {
       avatarArea.innerHTML = `<img src="${userPhotoData}" class="cert-avatar" alt="聲明人">`;
@@ -799,7 +770,6 @@
       avatarArea.innerHTML = `<div class="avatar-placeholder">👤</div>`;
     }
 
-    // idol avatar
     const idolAvatarArea = document.getElementById('cert-idol-avatar-area');
     if (idolPhotoData) {
       idolAvatarArea.innerHTML = `<img src="${idolPhotoData}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;border:2.5px solid var(--pink-light);float:right;margin:0 0 8px 10px;" alt="脫粉對象">`;
@@ -807,7 +777,6 @@
       idolAvatarArea.innerHTML = `<div class="idol-placeholder">⭐</div>`;
     }
 
-    // reason
     const tags = getSelectedTags();
     let reasonParts = [];
     if (tags) reasonParts.push(tags);
@@ -820,7 +789,6 @@
       reasonSection.style.display = 'none';
     }
 
-    // show result
     document.getElementById('result-section').classList.add('show');
     document.getElementById('form-area').style.display = 'none';
     document.querySelector('.generate-btn').style.display = 'none';
@@ -831,13 +799,15 @@
     }, 100);
   }
 
-  // ── DOWNLOAD ──
   function downloadCert() {
     const cert = document.getElementById('certificate');
+    // 在 html2canvas 設定中強制跨域與背景色
     html2canvas(cert, {
       scale: 3,
       useCORS: true,
+      allowTaint: true,
       backgroundColor: '#ffffff',
+      logging: false
     }).then(canvas => {
       const link = document.createElement('a');
       link.download = '脫粉聲明書.png';
@@ -846,7 +816,6 @@
     });
   }
 
-  // ── ETHICS MODAL ──
   function showEthics() {
     document.getElementById('ethics-modal').classList.add('show');
   }
