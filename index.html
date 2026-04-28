@@ -8,212 +8,180 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
-        body { font-family: 'Noto Sans TC', sans-serif; background: linear-gradient(180deg, #E2D5FF 0%, #F9F1FF 100%); }
-        .bubble { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05)); }
-        .dashed-box { border: 2px dashed #D8B4FE; background: #FAF5FF; }
-        .btn-gradient { background: linear-gradient(90deg, #9333EA 0%, #EC4899 100%); }
-        .seal-img { width: 100px; height: 100px; object-fit: contain; transform: rotate(-10deg); opacity: 0.9; }
-        .tag-inactive { background: white; color: #D8B4FE; border: 1px solid #F3E8FF; }
-        .tag-active { background: #FDF2F8; color: #DB2777; border: 1px solid #FBCFE8; }
+        
+        body { 
+            font-family: 'Noto Sans TC', sans-serif; 
+            background: linear-gradient(180deg, #EBE8FF 0%, #FCFAFF 100%);
+            min-height: 100vh;
+        }
+
+        /* 毛玻璃 Navbar */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .title-gradient {
+            background: linear-gradient(90deg, #A855F7 0%, #FF46D5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 聲明書本體 */
+        #capture-area {
+            background: #F9F5FF;
+            border: 1px solid #E9D5FF;
+            position: relative;
+            width: 100%;
+        }
+
+        /* 隱藏原生捲軸但保留功能 */
+        ::-webkit-scrollbar { width: 0; }
+
+        .idol-photo-overlay {
+            position: absolute;
+            right: 20px;
+            top: 155px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 20;
+            object-fit: cover;
+        }
+
+        .seal-img {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            transform: rotate(-12deg);
+            z-index: 30;
+        }
+
+        /* 讓生成的圖片覆蓋在最上層，方便長按 */
+        #final-image-result {
+            width: 100%;
+            border-radius: 2rem;
+            display: none; /* 初始隱藏 */
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+        }
+
+        .input-style {
+            background: #F3F4F6;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            width: 100%;
+        }
     </style>
 </head>
-<body class="min-h-screen p-4 flex flex-col items-center">
+<body class="pb-20">
 
-    <div class="w-full max-w-md flex justify-between items-center mb-6">
-        <div class="text-[#8B5CF6] font-bold text-sm flex items-center">
-            <span class="mr-1 text-lg">✦</span> 脫粉聲明書產生器
-        </div>
-        <div class="bg-[#E9D5FF] text-[#8B5CF6] text-[10px] px-3 py-1 rounded-full font-medium">道德認證</div>
-    </div>
+    <nav class="glass-nav flex justify-between items-center py-4 px-6 mb-8">
+        <div class="title-gradient font-black text-sm flex items-center">✦ 脫粉聲明書產生器</div>
+        <div class="bg-purple-100/80 text-purple-600 text-[10px] px-3 py-1 rounded-full font-bold">正式版</div>
+    </nav>
 
-    <div class="text-center mb-6 w-full max-w-md">
-        <h1 class="text-[#A855F7] text-3xl font-black mb-1 tracking-tight">脫粉，要有儀式感 ✦</h1>
-        <p class="text-gray-500 text-[11px] mb-4">親愛的 這是一個無比艱難的決定</p>
-        <p class="text-gray-400 text-[10px] mb-4 italic">讓每一次告別都值得被紀念</p>
+    <div class="max-w-md mx-auto px-4">
         
-        <div class="space-y-2 flex flex-col items-center">
-            <div class="bubble bg-[#F0FDF4] text-[#4ADE80] text-[10px] py-1.5 px-4 rounded-full shadow-sm">
-                📎 歐爸常常說我是猩猩，所以我不開心。
-            </div>
-            <div class="bubble bg-[#EFF6FF] text-[#60A5FA] text-[10px] py-1.5 px-4 rounded-full shadow-sm relative -right-4">
-                我擔吃咖哩飯居然會辦在一起!!無法接受😫
-            </div>
-        </div>
-    </div>
-
-    <div id="step-edit" class="w-full max-w-md space-y-4">
-        <div class="bg-white rounded-[2.5rem] p-8 shadow-sm">
-            <div class="flex gap-8">
-                <div class="flex-1">
-                    <h3 class="font-bold text-[#7C3AED] text-sm flex items-center mb-3">
-                        <span class="w-1.5 h-4 bg-[#7C3AED] mr-2 rounded-full"></span> 聲明人
-                    </h3>
-                    <label class="text-[10px] text-gray-400 block mb-1">聲明人暱稱*</label>
-                    <input id="input-name" type="text" placeholder="請輸入你的暱稱" class="w-full bg-[#F3F4F6] rounded-2xl px-4 py-3 text-sm focus:outline-none">
+        <div id="step-edit" class="space-y-6">
+            <div class="bg-white/80 backdrop-blur-md rounded-[2rem] p-8 shadow-sm border border-white">
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <input id="input-name" type="text" placeholder="聲明人暱稱" class="input-style">
+                    <input id="input-idol" type="text" placeholder="脫粉對象" class="input-style">
                 </div>
-                <div class="flex-1">
-                    <h3 class="font-bold text-[#7C3AED] text-sm flex items-center mb-3">
-                        <span class="w-1.5 h-4 bg-[#7C3AED] mr-2 rounded-full"></span> 脫粉對象
-                    </h3>
-                    <label class="text-[10px] text-gray-400 block mb-1">脫粉的團體 / 藝人名稱*</label>
-                    <input id="input-idol" type="text" placeholder="例：某某偶像團體" class="w-full bg-[#F3F4F6] rounded-2xl px-4 py-3 text-sm focus:outline-none">
-                </div>
-            </div>
-
-            <div class="mt-6 grid grid-cols-2 gap-4">
-                <div>
-                    <label class="text-[10px] text-gray-400 block mb-1">脫粉日期時間*</label>
-                    <input id="input-date" type="datetime-local" class="w-full bg-[#F3F4F6] rounded-xl px-2 py-2 text-xs">
-                </div>
-                <div class="flex items-end pb-1">
-                    <button class="text-[#A855F7] text-[10px] font-bold">重設</button>
-                </div>
-            </div>
-
-            <div class="mt-6 grid grid-cols-2 gap-4">
-                <div>
-                    <label class="text-[10px] text-gray-400 block mb-1">大頭照 (選填)</label>
-                    <div onclick="document.getElementById('input-avatar').click()" class="dashed-box rounded-2xl h-24 flex flex-col items-center justify-center cursor-pointer">
-                        <div class="bg-[#7C3AED] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mb-1">+</div>
-                        <span class="text-[10px] text-[#A855F7]">上傳照片</span>
-                    </div>
+                <input id="input-date" type="datetime-local" class="input-style mb-4">
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div onclick="document.getElementById('input-avatar').click()" class="border-2 border-dashed border-purple-200 rounded-2xl h-20 flex items-center justify-center cursor-pointer text-[10px] text-purple-400">上傳大頭照</div>
+                    <div onclick="document.getElementById('input-idol-pic').click()" class="border-2 border-dashed border-purple-200 rounded-2xl h-20 flex items-center justify-center cursor-pointer text-[10px] text-purple-400">上傳藝人照</div>
                     <input id="input-avatar" type="file" accept="image/*" class="hidden">
-                </div>
-                <div>
-                    <label class="text-[10px] text-gray-400 block mb-1">團體照片 (選填，會加上ㄨ)</label>
-                    <div onclick="document.getElementById('input-idol-pic').click()" class="dashed-box rounded-2xl h-24 flex flex-col items-center justify-center cursor-pointer">
-                        <div class="bg-[#7C3AED] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs mb-1">+</div>
-                        <span class="text-[10px] text-[#A855F7]">上傳照片</span>
-                    </div>
                     <input id="input-idol-pic" type="file" accept="image/*" class="hidden">
                 </div>
+                <textarea id="input-note" class="input-style h-20 resize-none" placeholder="脫粉理由..."></textarea>
             </div>
-
-            <div class="mt-6">
-                <label class="text-[10px] text-gray-400 block mb-2">脫粉理由 (選填)</label>
-                <div class="flex flex-wrap gap-2">
-                    <button class="reason-tag tag-inactive px-3 py-1 rounded-full text-[10px]">對象是拌咖哩派</button>
-                    <button class="reason-tag tag-inactive px-3 py-1 rounded-full text-[10px]">荷包比臉瘦</button>
-                    <button class="reason-tag tag-inactive px-3 py-1 rounded-full text-[10px]">新坑已入</button>
-                    <button class="reason-tag tag-inactive px-3 py-1 rounded-full text-[10px]">粉籍到期</button>
-                    <button class="reason-tag tag-inactive px-3 py-1 rounded-full text-[10px]">理性脫粉</button>
-                </div>
-            </div>
-
-            <div class="mt-6">
-                <label class="text-[10px] text-gray-400 block mb-1">補充說明 (選填)</label>
-                <textarea id="input-note" class="w-full bg-white border border-[#F3E8FF] rounded-2xl p-4 text-xs h-24 resize-none" placeholder="可自行填寫脫粉理由、心路歷程或告別宣言..."></textarea>
-            </div>
+            <button onclick="generate()" class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white font-black py-4 rounded-full shadow-lg">✦ 生成並長按儲存 ✦</button>
         </div>
 
-        <button onclick="generate()" class="w-full btn-gradient text-white font-black py-4 rounded-full text-sm tracking-[0.2em] shadow-md">
-            ✦ 生成脫粉聲明書 ✦
-        </button>
-    </div>
-
-    <div id="step-preview" class="hidden w-full max-w-md space-y-6">
-        <div id="capture-area" class="bg-[#F9F5FF] p-6 rounded-2xl border border-[#E9D5FF] relative overflow-hidden">
-            <div class="text-right text-[10px] text-gray-500 mb-4" id="display-no">No. 910917</div>
-            <h2 class="text-center text-[#9333EA] text-2xl font-black tracking-[0.3em] mb-8">脫粉聲明書</h2>
-            
-            <div class="flex items-center mb-8 px-4">
-                <div class="relative">
-                    <img id="display-avatar" class="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm" src="https://via.placeholder.com/150">
-                </div>
-                <div class="ml-4">
-                    <p class="text-[10px] text-[#9333EA] font-bold">聲明人</p>
-                    <h4 id="display-name" class="text-2xl font-black text-gray-800">綿子</h4>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-3xl p-6 mb-4 shadow-[0_4px_20px_rgba(233,213,255,0.3)]">
-                <p class="text-[10px] text-gray-600 mb-4">茲 聲明：本人自今日起，正式解除與</p>
-                <div class="flex flex-col items-center py-2">
-                    <div class="relative mb-4">
-                        <img id="display-idol-pic" class="w-24 h-24 rounded-full object-cover grayscale-[0.2]" src="https://via.placeholder.com/150">
-                        <div class="absolute inset-0 flex items-center justify-center text-white text-4xl font-light opacity-60"></div>
+        <div id="step-preview" class="hidden text-center">
+            <div id="capture-area" class="rounded-[2rem] p-8 text-left absolute -left-[9999px]">
+                <div class="text-right text-[10px] text-gray-400 mb-4">No.910917</div>
+                <h2 class="text-center text-[#A855F7] text-2xl font-black tracking-[0.4em] mb-10">脫粉聲明書</h2>
+                <div class="bg-purple-100/50 rounded-2xl p-5 flex items-center mb-5">
+                    <img id="display-avatar" class="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm bg-white">
+                    <div class="ml-4">
+                        <p class="text-[9px] text-purple-500 font-bold">聲明人</p>
+                        <h4 id="display-name" class="text-2xl font-black text-gray-800"></h4>
                     </div>
-                    <h3 id="display-idol-name" class="text-lg font-black text-gray-900 mb-4 tracking-tight"></h3>
                 </div>
-                <p class="text-[9px] text-gray-400 leading-relaxed text-justify px-2">
-                    之粉絲關係。本聲明一經發佈即刻生效，具完整道德效力，任何人不得以任何形式要求本人重返粉籍，亦不得對本人之脫粉行為提出異議。
-                </p>
-            </div>
-
-            <div class="bg-white rounded-3xl p-6 relative">
-                <div class="mb-8">
-                    <p class="text-[10px] text-[#A855F7] font-bold mb-1">脫粉理由</p>
-                    <p id="display-final-reason" class="text-[11px] text-gray-700 font-medium"></p>
+                <img id="display-idol-pic" class="idol-photo-overlay">
+                <div class="bg-white/90 rounded-2xl p-6 mb-5">
+                    <p class="text-[10px] text-gray-500 mb-4">茲 聲明：本人自今日起，正式解除與</p>
+                    <h3 id="display-idol-name" class="text-center text-lg font-black text-gray-900 mb-6"></h3>
+                    <p class="text-[9px] text-gray-400 leading-relaxed">之粉絲關係。本聲明一經發佈即刻生效，具完整道德效力。</p>
                 </div>
-                
-                <div class="space-y-1">
-                    <p class="text-[10px] text-gray-500">聲明日期：<span class="border-b border-gray-400 px-2 min-w-[100px] inline-block text-center font-mono" id="display-final-date"></span></p>
-                    <p class="text-[10px] text-gray-500">聲明人簽署：<span class="border-b border-gray-400 px-2 min-w-[100px] inline-block text-center font-bold" id="display-final-sign"></span></p>
-                </div>
-
-                <div class="absolute bottom-4 right-4">
-                    <img src="seal.png" class="seal-img" onerror="this.src='https://api.iconify.design/emojione:v-sign.svg'">
+                <div class="bg-white/90 rounded-2xl p-6 min-h-[140px] relative">
+                    <p class="text-[9px] text-purple-500 font-bold mb-1">脫粉理由</p>
+                    <p id="display-reason" class="text-[11px] text-gray-700 font-medium mb-8"></p>
+                    <div class="text-[9px] text-gray-400 space-y-1 border-t pt-3">
+                        <p>日期：<span id="display-date" class="text-gray-600"></span></p>
+                        <p>簽署：<span id="display-sign" class="text-gray-800 font-black"></span></p>
+                    </div>
+                    <img src="seal.png" class="seal-img">
                 </div>
             </div>
+
+            <img id="final-image-result" alt="長按圖片另存">
+            
+            <p class="text-gray-400 text-xs mt-6 mb-4">💡 提示：長按上方圖片即可另存或分享</p>
+            <button onclick="location.reload()" class="text-purple-500 text-xs font-bold">← 返回修改內容</button>
         </div>
-
-        <div class="text-center text-[10px] text-gray-400">右鍵 → 儲存圖片或是點擊下載按鈕</div>
-        <button onclick="downloadImage()" class="w-full bg-white text-[#A855F7] font-bold py-4 rounded-full shadow-sm flex items-center justify-center gap-2">
-            <span class="text-lg">⬇</span> 下載聲明書
-        </button>
     </div>
 
     <script>
-        // 設定預設日期
-        const inputDate = document.getElementById('input-date');
-        const now = new Date();
-        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-        inputDate.value = now.toISOString().slice(0, 16);
-
-        // 標籤切換
-        document.querySelectorAll('.reason-tag').forEach(tag => {
-            tag.onclick = () => {
-                tag.classList.toggle('tag-active');
-                tag.classList.toggle('tag-inactive');
-            };
-        });
-
-        // 圖片上傳預覽
-        function bindUpload(inputId, imgId) {
+        function setupImageUpload(inputId, imgId) {
             document.getElementById(inputId).onchange = (e) => {
                 const reader = new FileReader();
                 reader.onload = (ev) => document.getElementById(imgId).src = ev.target.result;
                 reader.readAsDataURL(e.target.files[0]);
             };
         }
-        bindUpload('input-avatar', 'display-avatar');
-        bindUpload('input-idol-pic', 'display-idol-pic');
+        setupImageUpload('input-avatar', 'display-avatar');
+        setupImageUpload('input-idol-pic', 'display-idol-pic');
 
-        function generate() {
-            const name = document.getElementById('input-name').value || '匿名者';
-            const idol = document.getElementById('input-idol').value || '某偶像';
-            
+        async function generate() {
+            // 1. 填入文字
+            const name = document.getElementById('input-name').value || '綿子';
             document.getElementById('display-name').innerText = name;
-            document.getElementById('display-final-sign').innerText = name;
-            document.getElementById('display-idol-name').innerText = `【 ${idol} 】`;
-            
-            const selectedDate = new Date(inputDate.value);
-            document.getElementById('display-final-date').innerText = selectedDate.toLocaleDateString() + ' ' + selectedDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            
-            const reasons = Array.from(document.querySelectorAll('.tag-active')).map(t => t.innerText).join('，');
-            const note = document.getElementById('input-note').value;
-            document.getElementById('display-final-reason').innerText = (reasons + (note ? '，' + note : '')) || '理性脫粉，沒錢了！';
+            document.getElementById('display-sign').innerText = name;
+            document.getElementById('display-idol-name').innerText = `【 ${document.getElementById('input-idol').value || '某某偶像'} 】`;
+            document.getElementById('display-reason').innerText = document.getElementById('input-note').value || '理性脫粉，祝好。';
+            document.getElementById('display-date').innerText = new Date().toLocaleDateString();
 
+            // 2. 顯示預覽容器 (但 capture-area 仍在畫面外)
             document.getElementById('step-edit').classList.add('hidden');
             document.getElementById('step-preview').classList.remove('hidden');
-        }
 
-        function downloadImage() {
-            html2canvas(document.getElementById('capture-area'), { scale: 3, useCORS: true }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = '脫粉聲明書.png';
-                link.href = canvas.toDataURL();
-                link.click();
+            // 3. 關鍵：將內容轉為真正的圖片
+            const area = document.getElementById('capture-area');
+            // 等待圖片載入完成
+            await new Promise(resolve => setTimeout(resolve, 500)); 
+            
+            html2canvas(area, {
+                scale: 3,
+                useCORS: true,
+                backgroundColor: "#F9F5FF"
+            }).then(canvas => {
+                const finalImg = document.getElementById('final-image-result');
+                finalImg.src = canvas.toDataURL('image/png');
+                finalImg.style.display = 'block'; // 顯示圖片
             });
         }
     </script>
