@@ -175,9 +175,9 @@
     box-shadow: var(--shadow);
   }
   .section-title {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
-    color: var(--purple-deep);
+    color: #A959FF;
     margin-bottom: 16px;
     display: flex;
     align-items: center;
@@ -191,9 +191,10 @@
   .field-group { margin-bottom: 16px; }
   .field-label {
     font-size: 13px;
-    color: var(--text-light);
+    color: #8E55CB;
     margin-bottom: 6px;
     display: block;
+    font-weight: 500;
   }
   .field-label .required { color: var(--pink); }
 
@@ -202,17 +203,17 @@
   textarea {
     width: 100%;
     padding: 12px 14px;
-    border: 1.5px solid #e8e0f8;
-    border-radius: 12px;
+    border: 1.5px solid #EDD8F6;
+    border-radius: 16px;
     font-family: 'Noto Sans TC', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     color: var(--text);
     background: #faf8ff;
     outline: none;
     transition: border-color 0.2s;
   }
   input:focus, textarea:focus {
-    border-color: var(--purple-mid);
+    border-color: #FAF8FF;
     background: white;
   }
   textarea {
@@ -230,8 +231,7 @@
   .datetime-wrap input { flex: 1; }
   .reset-btn {
     font-size: 12px;
-    color: var(--purple-deep);
-    background: var(--lavender);
+    color: #8E55CB;
     border: none;
     border-radius: 8px;
     padding: 8px 12px;
@@ -256,7 +256,7 @@
   }
   .upload-icon {
     width: 40px; height: 40px;
-    background: linear-gradient(135deg, var(--purple-mid), var(--pink));
+    background: #8E55CB;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 8px;
@@ -283,15 +283,15 @@
     font-size: 13px;
     padding: 7px 14px;
     border-radius: 20px;
-    border: 1.5px solid #d4c8f5;
-    background: white;
-    color: var(--text-light);
+    border: 1.5px solid #E9D5FF;
+    background: #FBF7FF;
+    color: #773DB5;
     cursor: pointer;
     transition: all 0.15s;
     user-select: none;
   }
   .tag.selected {
-    background: linear-gradient(135deg, var(--purple-mid), var(--pink));
+    background: #8E55CB;
     color: white;
     border-color: transparent;
   }
@@ -302,7 +302,7 @@
     width: calc(100% - 32px);
     margin: 20px 16px;
     padding: 18px;
-    background: linear-gradient(135deg, #a98ee8 0%, #e879a8 100%);
+    background: linear-gradient(180deg, #8E55CB 0%, #FF65DE 100%);
     color: white;
     font-family: 'Noto Sans TC', sans-serif;
     font-size: 16px;
@@ -310,8 +310,8 @@
     border: none;
     border-radius: 16px;
     cursor: pointer;
-    letter-spacing: 2px;
-    box-shadow: 0 6px 20px rgba(169,142,232,0.4);
+    letter-spacing: 3px;
+    box-shadow: 0 6px 20px rgba(182,105,176,29%);
     transition: transform 0.15s, box-shadow 0.15s;
   }
   .generate-btn:hover {
