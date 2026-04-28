@@ -11,13 +11,13 @@
         
         body { 
             font-family: 'Noto Sans TC', sans-serif; 
-            background: linear-gradient(180deg, #EBE8FF 0%, #FCFAFF 100%);
+            background: #F3F0FF;
             min-height: 100vh;
         }
 
-        /* 毛玻璃 Navbar */
+        /* Navbar 毛玻璃 */
         .glass-nav {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -26,113 +26,129 @@
             z-index: 100;
         }
 
-        .title-gradient {
-            background: linear-gradient(90deg, #A855F7 0%, #FF46D5 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* 聲明書本體 */
+        /* 聲明書繪圖區 (隱藏) */
         #capture-area {
+            width: 375px; /* 固定寬度確保比例一致 */
             background: #F9F5FF;
-            border: 1px solid #E9D5FF;
-            position: relative;
-            width: 100%;
+            padding: 30px 20px;
+            position: absolute;
+            left: -9999px;
         }
 
-        /* 隱藏原生捲軸但保留功能 */
-        ::-webkit-scrollbar { width: 0; }
+        .section-box {
+            background: rgba(235, 225, 255, 0.5);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+        }
 
+        .white-box {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        /* 藝人大頭照重疊定位 */
         .idol-photo-overlay {
             position: absolute;
-            right: 20px;
-            top: 155px;
-            width: 80px;
-            height: 80px;
+            right: 15px;
+            top: 155px; /* 根據截圖精準定位在區塊交界 */
+            width: 85px;
+            height: 85px;
             border-radius: 50%;
-            border: 4px solid white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            z-index: 20;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 50;
             object-fit: cover;
         }
 
         .seal-img {
             position: absolute;
-            bottom: 20px;
-            right: 20px;
+            bottom: 15px;
+            right: 15px;
             width: 100px;
-            height: 100px;
-            transform: rotate(-12deg);
-            z-index: 30;
+            transform: rotate(-10deg);
+            z-index: 60;
         }
 
-        /* 讓生成的圖片覆蓋在最上層，方便長按 */
+        /* 真正顯示給使用者看的圖片 */
         #final-image-result {
             width: 100%;
-            border-radius: 2rem;
-            display: none; /* 初始隱藏 */
-            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+            max-width: 375px;
+            border-radius: 24px;
+            display: none;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         .input-style {
             background: #F3F4F6;
-            border-radius: 0.75rem;
-            padding: 0.75rem 1rem;
-            font-size: 0.875rem;
+            border-radius: 12px;
+            padding: 12px;
             width: 100%;
+            font-size: 14px;
         }
     </style>
 </head>
 <body class="pb-20">
 
     <nav class="glass-nav flex justify-between items-center py-4 px-6 mb-8">
-        <div class="title-gradient font-black text-sm flex items-center">✦ 脫粉聲明書產生器</div>
-        <div class="bg-purple-100/80 text-purple-600 text-[10px] px-3 py-1 rounded-full font-bold">正式版</div>
+        <div class="text-[#A855F7] font-black text-sm">✦ 脫粉聲明書產生器</div>
+        <div class="bg-purple-100 text-purple-600 text-[10px] px-3 py-1 rounded-full font-bold">道德認證</div>
     </nav>
 
     <div class="max-w-md mx-auto px-4">
         
-        <div id="step-edit" class="space-y-6">
-            <div class="bg-white/80 backdrop-blur-md rounded-[2rem] p-8 shadow-sm border border-white">
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <input id="input-name" type="text" placeholder="聲明人暱稱" class="input-style">
-                    <input id="input-idol" type="text" placeholder="脫粉對象" class="input-style">
-                </div>
-                <input id="input-date" type="datetime-local" class="input-style mb-4">
-                <div class="grid grid-cols-2 gap-4 mb-6">
-                    <div onclick="document.getElementById('input-avatar').click()" class="border-2 border-dashed border-purple-200 rounded-2xl h-20 flex items-center justify-center cursor-pointer text-[10px] text-purple-400">上傳大頭照</div>
-                    <div onclick="document.getElementById('input-idol-pic').click()" class="border-2 border-dashed border-purple-200 rounded-2xl h-20 flex items-center justify-center cursor-pointer text-[10px] text-purple-400">上傳藝人照</div>
-                    <input id="input-avatar" type="file" accept="image/*" class="hidden">
-                    <input id="input-idol-pic" type="file" accept="image/*" class="hidden">
-                </div>
-                <textarea id="input-note" class="input-style h-20 resize-none" placeholder="脫粉理由..."></textarea>
+        <div id="step-edit" class="bg-white rounded-[2rem] p-8 shadow-sm space-y-6">
+            <div class="grid grid-cols-2 gap-4">
+                <input id="input-name" type="text" placeholder="你的暱稱 (例: 綿子)" class="input-style">
+                <input id="input-idol" type="text" placeholder="對象 (例: 李周演)" class="input-style">
             </div>
-            <button onclick="generate()" class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white font-black py-4 rounded-full shadow-lg">✦ 生成並長按儲存 ✦</button>
+            <input id="input-date" type="datetime-local" class="input-style">
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="document.getElementById('input-avatar').click()" class="border-2 border-dashed border-purple-200 rounded-xl h-20 text-[10px] text-purple-400">上傳你的頭像</button>
+                <button onclick="document.getElementById('input-idol-pic').click()" class="border-2 border-dashed border-purple-200 rounded-xl h-20 text-[10px] text-purple-400">上傳藝人照片</button>
+                <input id="input-avatar" type="file" accept="image/*" class="hidden">
+                <input id="input-idol-pic" type="file" accept="image/*" class="hidden">
+            </div>
+            <textarea id="input-note" class="input-style h-24" placeholder="補充說明 (例: 理性脫粉，沒錢了！)"></textarea>
+            <button onclick="generate()" class="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white font-black py-4 rounded-full shadow-lg">✦ 生成聲明書 ✦</button>
         </div>
 
         <div id="step-preview" class="hidden text-center">
-            <div id="capture-area" class="rounded-[2rem] p-8 text-left absolute -left-[9999px]">
-                <div class="text-right text-[10px] text-gray-400 mb-4">No.910917</div>
-                <h2 class="text-center text-[#A855F7] text-2xl font-black tracking-[0.4em] mb-10">脫粉聲明書</h2>
-                <div class="bg-purple-100/50 rounded-2xl p-5 flex items-center mb-5">
-                    <img id="display-avatar" class="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm bg-white">
-                    <div class="ml-4">
-                        <p class="text-[9px] text-purple-500 font-bold">聲明人</p>
-                        <h4 id="display-name" class="text-2xl font-black text-gray-800"></h4>
+            
+            <div id="capture-area">
+                <p class="text-right text-[10px] text-gray-400 mb-2">No.910917</p>
+                <h2 class="text-center text-[#A855F7] text-3xl font-black tracking-[0.3em] mb-8">脫粉聲明書</h2>
+                
+                <div class="section-box flex items-center">
+                    <img id="display-avatar" class="w-20 h-20 rounded-full object-cover border-2 border-white bg-white">
+                    <div class="ml-4 text-left">
+                        <p class="text-[10px] text-purple-500 font-bold">聲明人</p>
+                        <h4 id="display-name" class="text-3xl font-black text-gray-800"></h4>
                     </div>
                 </div>
+
                 <img id="display-idol-pic" class="idol-photo-overlay">
-                <div class="bg-white/90 rounded-2xl p-6 mb-5">
-                    <p class="text-[10px] text-gray-500 mb-4">茲 聲明：本人自今日起，正式解除與</p>
-                    <h3 id="display-idol-name" class="text-center text-lg font-black text-gray-900 mb-6"></h3>
-                    <p class="text-[9px] text-gray-400 leading-relaxed">之粉絲關係。本聲明一經發佈即刻生效，具完整道德效力。</p>
+
+                <div class="white-box">
+                    <p class="text-[11px] text-gray-500 mb-4 text-left">茲 聲明：本人自今日起，正式解除與</p>
+                    <h3 id="display-idol-name" class="text-center text-xl font-black text-gray-900 mb-6 leading-tight"></h3>
+                    <p class="text-[10px] text-gray-400 leading-relaxed text-left">
+                        之粉絲關係。本聲明一經發佈即刻生效，具完整道德效力，任何人不得以任何形式要求本人重返粉籍。
+                    </p>
                 </div>
-                <div class="bg-white/90 rounded-2xl p-6 min-h-[140px] relative">
-                    <p class="text-[9px] text-purple-500 font-bold mb-1">脫粉理由</p>
-                    <p id="display-reason" class="text-[11px] text-gray-700 font-medium mb-8"></p>
-                    <div class="text-[9px] text-gray-400 space-y-1 border-t pt-3">
-                        <p>日期：<span id="display-date" class="text-gray-600"></span></p>
-                        <p>簽署：<span id="display-sign" class="text-gray-800 font-black"></span></p>
+
+                <div class="white-box min-h-[180px]">
+                    <p class="text-[10px] text-purple-500 font-bold mb-2 text-left">脫粉理由</p>
+                    <p id="display-reason" class="text-[12px] text-gray-700 font-medium mb-12 text-left"></p>
+                    
+                    <div class="space-y-3 pt-4 border-t border-purple-50">
+                        <p class="text-[11px] text-gray-400 text-left">聲明日期：<span id="display-date" class="border-b border-gray-300 ml-1 text-gray-600 px-2"></span></p>
+                        <p class="text-[11px] text-gray-400 text-left">聲明人簽署：<span id="display-sign" class="border-b border-gray-300 ml-1 text-gray-800 font-black px-2"></span></p>
                     </div>
                     <img src="seal.png" class="seal-img">
                 </div>
@@ -140,48 +156,51 @@
 
             <img id="final-image-result" alt="長按圖片另存">
             
-            <p class="text-gray-400 text-xs mt-6 mb-4">💡 提示：長按上方圖片即可另存或分享</p>
-            <button onclick="location.reload()" class="text-purple-500 text-xs font-bold">← 返回修改內容</button>
+            <p class="text-gray-400 text-xs mt-6 mb-4">💡 佈局已依截圖復刻，長按上方圖片即可存檔</p>
+            <button onclick="location.reload()" class="text-purple-500 text-sm font-bold">← 返回修改</button>
         </div>
     </div>
 
     <script>
-        function setupImageUpload(inputId, imgId) {
+        // 圖片上傳邏輯
+        function setupUpload(inputId, imgId) {
             document.getElementById(inputId).onchange = (e) => {
                 const reader = new FileReader();
                 reader.onload = (ev) => document.getElementById(imgId).src = ev.target.result;
                 reader.readAsDataURL(e.target.files[0]);
             };
         }
-        setupImageUpload('input-avatar', 'display-avatar');
-        setupImageUpload('input-idol-pic', 'display-idol-pic');
+        setupUpload('input-avatar', 'display-avatar');
+        setupUpload('input-idol-pic', 'display-idol-pic');
 
         async function generate() {
-            // 1. 填入文字
+            // 填寫內容
             const name = document.getElementById('input-name').value || '綿子';
             document.getElementById('display-name').innerText = name;
             document.getElementById('display-sign').innerText = name;
-            document.getElementById('display-idol-name').innerText = `【 ${document.getElementById('input-idol').value || '某某偶像'} 】`;
-            document.getElementById('display-reason').innerText = document.getElementById('input-note').value || '理性脫粉，祝好。';
-            document.getElementById('display-date').innerText = new Date().toLocaleDateString();
+            document.getElementById('display-idol-name').innerText = `【 ${document.getElementById('input-idol').value || '某某藝人'} 】`;
+            document.getElementById('display-reason').innerText = document.getElementById('input-note').value || '理性脫粉，沒錢了！';
+            
+            const dateInput = document.getElementById('input-date').value;
+            document.getElementById('display-date').innerText = dateInput ? dateInput.replace('T', ' ') : '2026/04/28 12:06';
 
-            // 2. 顯示預覽容器 (但 capture-area 仍在畫面外)
+            // 顯示預覽區
             document.getElementById('step-edit').classList.add('hidden');
             document.getElementById('step-preview').classList.remove('hidden');
 
-            // 3. 關鍵：將內容轉為真正的圖片
+            // 渲染圖片
             const area = document.getElementById('capture-area');
-            // 等待圖片載入完成
-            await new Promise(resolve => setTimeout(resolve, 500)); 
+            await new Promise(r => setTimeout(r, 600)); // 等待頭像渲染完畢
             
             html2canvas(area, {
                 scale: 3,
                 useCORS: true,
-                backgroundColor: "#F9F5FF"
+                width: 375,
+                backgroundColor: "#F3F0FF"
             }).then(canvas => {
                 const finalImg = document.getElementById('final-image-result');
                 finalImg.src = canvas.toDataURL('image/png');
-                finalImg.style.display = 'block'; // 顯示圖片
+                finalImg.style.display = 'block';
             });
         }
     </script>
