@@ -124,7 +124,6 @@
     line-height: 1.55;
     position: relative;
     background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 4.2px rgba(0, 0, 0, 0.05);
     font-weight: 500;
   }
   .bubble-left {
@@ -599,7 +598,7 @@
       <label class="field-label">脫粉日期時間 <span class="required">*</span></label>
       <div class="datetime-wrap">
         <input type="datetime-local" id="date-time">
-        <button class="reset-btn" onclick="resetDateTime()">重設</button>
+        <button class="reset-btn" onclick="resetDateTime()">此時此刻</button>
       </div>
     </div>
 
@@ -626,7 +625,7 @@
     </div>
 
     <div class="field-group">
-      <label class="field-label">團體照片（選填，會加上 ✕）</label>
+      <label class="field-label">團體照片（選填）</label>
       <div class="photo-upload" id="idol-photo-wrap">
         <input type="file" accept="image/*" id="idol-photo-input" onchange="previewPhoto('idol')">
         <div id="idol-upload-ui">
