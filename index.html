@@ -51,15 +51,23 @@
     z-index: 100;
   }
   .site-logo {
-    font-size: 15px;
-    font-weight: 700;
-    background: linear-gradient(135deg, #A959FF, #FF54DA);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 圖片與文字之間的距離 */
+  }
+  .logo-image {
+  height: 30px; /* 這裡設定 logo 的高度，你可以根據你的圖片形狀手動調整 */
+  width: auto; /* 寬度自動，保持比例 */
+  object-fit: contain;
+  }
+  .logo-text {
+  font-size: 15px;
+  font-weight: 700;
+  /* 這裡保留原本的漸層顏色效果 */
+  background: linear-gradient(135deg, #A959FF, #FF54DA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   }
   .ethics-badge {
     font-size: 12px;
@@ -572,7 +580,10 @@
 <body>
 
 <header class="site-header">
-  <div class="site-logo">✦ 脫粉聲明書產生器</div>
+  <div class="site-logo">
+    <img src="logo.svg" alt="Logo" class="logo-image">
+    <span class="logo-text">脫粉聲明書</span>
+  </div>
   <button class="ethics-badge" onclick="showEthics()">道德認證</button>
 </header>
 
