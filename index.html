@@ -1,905 +1,195 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>脫粉聲明書 ✦</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;700;900&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<style>
-  :root {
-    --purple-light: #c9b8f0;
-    --purple-mid: #a98ee8;
-    --purple-deep: #7c5cbf;
-    --pink: #e879a8;
-    --pink-light: #f4b8d4;
-    --lavender: #ede8fc;
-    --bg: #f3effb;
-    --white: #ffffff;
-    --text: #3a2d5e;
-    --text-light: #7a6fa0;
-    --red-stamp: #d93535;
-    --shadow: 0 8px 32px rgba(124,92,191,0.13);
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html {
-    background: linear-gradient(180deg, #FEE3FF 0%, #DBF4FF 50%, #E1D2FF 100%);
-    min-height: 100%;
-  }
-  body {
-    /* 在字體清單最後加入 'Noto Color Emoji' */
-    font-family: 'Noto Sans TC', sans-serif, 'Noto Sans CJK TC', 'Noto Color Emoji';
-    background: transparent;
-    color: var(--text);
-    min-height: 100vh;
-  }
-
-  /* ── HEADER ── */
-  .site-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 20px;
-    background: rgba(255, 255, 255, 0.86);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(4px);
-    border-bottom: 1px solid #EFEFEF;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .site-logo {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* 圖片與文字之間的距離 */
-    cursor: pointer; /* [修改1] 加上指標樣式 */
-  }
-  .logo-image {
-    height: 30px; /* 這裡設定 logo 的高度，你可以根據你的圖片形狀手動調整 */
-    width: auto; /* 寬度自動，保持比例 */
-    object-fit: contain;
-  }
-  .logo-text {
-    font-size: 15px;
-    font-weight: 700;
-    /* 這裡保留原本的漸層顏色效果 */
-    background: linear-gradient(135deg, #A959FF, #FF54DA);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .ethics-badge {
-    font-size: 12px;
-    color: #A959FF;
-    background: rgba(169, 89, 255, 0.12);
-    border: 1.5px solid rgba(169, 89, 255, 0.25);
-    border-radius: 20px;
-    padding: 6px 16px;
-    cursor: pointer;
-    font-family: 'Noto Sans TC', sans-serif;
-    transition: background 0.2s;
-  }
-  .ethics-badge:hover { background: rgba(169, 89, 255, 0.2); }
-
-  /* ── HERO ── */
-  .hero {
-    background: transparent;
-    padding: 36px 20px 24px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-title {
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 26px;
-    font-weight: 900;
-    background: linear-gradient(135deg, #A959FF, #FF54DA);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-  .hero-title .sparkle {
-    background: linear-gradient(135deg, #A959FF, #FF54DA);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .hero-subtitle {
-    font-size: 14px;
-    color: #555555;
-    margin-bottom: 22px;
-    letter-spacing: 0.5px;
-  }
-
-  /* ── EXAMPLE CHAT BUBBLES ── */
-  .bubbles {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 0 4px;
-  }
-  .bubble {
-    font-size: 13px;
-    padding: 12px 18px;
-    max-width: 90%;
-    line-height: 1.55;
-    position: relative;
-    background: rgba(255, 255, 255, 0.9);
-    font-weight: 500;
-  }
-  .bubble-left {
-    align-self: flex-start;
-    border-bottom-left-radius: 6px;
-    background: linear-gradient(135deg, #3DE2C3, #6693EC);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    position: relative;
-  }
-  .bubble-left::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.9);
-    border-radius: 20px;
-    z-index: -1;
-    box-shadow: 0 4px 4.2px rgba(0,0,0,0.05);
-  }
-  .bubble-right {
-    align-self: flex-end;
-    border-bottom-right-radius: 6px;
-    background: linear-gradient(135deg, #3D84E2, #6669EC);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    position: relative;
-  }
-  .bubble-right::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.9);
-    border-radius: 20px;
-    z-index: -1;
-    box-shadow: 0 4px 4.2px rgba(0,0,0,0.05);
-  }
-
-  /* ── FORM SECTIONS ── */
-  .form-section {
-    background: white;
-    border-radius: 20px;
-    margin: 16px 16px 0;
-    padding: 20px 18px;
-    box-shadow: var(--shadow);
-  }
-  .section-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #A959FF;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .section-title::before {
-    content: '▍';
-    color: var(--pink);
-  }
-
-  .field-group { margin-bottom: 16px; }
-  .field-label {
-    font-size: 13px;
-    color: #8E55CB;
-    margin-bottom: 6px;
-    display: block;
-    font-weight: 500;
-  }
-  .field-label .required { color: var(--pink); }
-
-  input[type="text"],
-  input[type="datetime-local"],
-  textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1.5px solid #EDD8F6;
-    border-radius: 16px;
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 16px;
-    background: #faf8ff;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  input:focus, textarea:focus {
-    background: #F1EBFF;
-    color: #414141;
-  }
-  textarea {
-    resize: vertical;
-    min-height: 90px;
-    line-height: 1.6;
-  }
-
-  /* datetime reset */
-  .datetime-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .datetime-wrap input { flex: 1; }
-  .reset-btn {
-    font-size: 12px;
-    color: #8E55CB;
-    background: transparent;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-
-  /* ── PHOTO UPLOAD ── */
-  .photo-upload {
-    border: 2px dashed #d4c8f5;
-    border-radius: 14px;
-    padding: 24px;
-    text-align: center;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    background: #faf8ff;
-    position: relative;
-  }
-  .photo-upload:hover { border-color: var(--purple-mid); background: #f5f0ff; }
-  .photo-upload input[type="file"] {
-    position: absolute; inset: 0; opacity: 0; cursor: pointer; border: none;
-  }
-  .upload-icon {
-    width: 40px; height: 40px;
-    background: #8E55CB;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 8px;
-    font-size: 20px;
-    color: white;
-  }
-  .upload-label { font-size: 13px; color: var(--text-light); }
-  .photo-preview {
-    width: 80px; height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: none;
-    margin: 0 auto;
-    border: 3px solid var(--purple-light);
-  }
-
-  /* ── REASON TAGS ── */
-  .tags-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .tag {
-    font-size: 13px;
-    padding: 7px 14px;
-    border-radius: 20px;
-    border: 1.5px solid #E9D5FF;
-    background: #FBF7FF;
-    color: #773DB5;
-    cursor: pointer;
-    transition: all 0.15s;
-    user-select: none;
-  }
-  .tag.selected {
-    background: #8E55CB;
-    color: white;
-    border-color: transparent;
-  }
-
-  /* ── GENERATE BTN ── */
-  .generate-btn {
-    display: block;
-    width: calc(100% - 32px);
-    margin: 20px 16px;
-    padding: 18px;
-    background: linear-gradient(90deg, #8E55CB 0%, #FF65DE 100%);
-    color: white;
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    border: none;
-    border-radius: 16px;
-    cursor: pointer;
-    letter-spacing: 3px;
-    box-shadow: 0 6px 20px rgba(182,105,176,29%);
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  .generate-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(169,142,232,0.5);
-  }
-  .generate-btn:active { transform: translateY(0); }
-
-  /* ── RESULT ── */
-  .result-section {
-    display: none;
-    padding: 20px 16px;
-  }
-  .result-section.show { display: block; }
-
-  /* [修改2] Hi 訊息區塊 */
-  .result-greeting {
-    font-size: 20px;
-    font-weight: 600;
-    border-radius: 14px;
-    padding: 14px 18px;
-    margin-bottom: 16px;
-    line-height: 1.7;
-    letter-spacing: 0.3px;
-  }
-  .result-greeting .greeting-name {
-    color: var(--pink);
-    font-weight: 700;
-  }
-
-  /* ── CERTIFICATE ── */
-  #certificate {
-    background: white;
-    border-radius: 20px;
-    padding: 28px 22px 24px;
-    box-shadow: 0 12px 40px rgba(124,92,191,0.18);
-    position: relative;
-    border: 2px solid #ede0ff;
-    overflow: hidden;
-    /* 強制內部使用 Emoji 字體 */
-    font-family: 'Noto Sans TC', 'Noto Serif TC', 'Noto Color Emoji', serif;
-  }
-  #certificate::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--purple-mid), var(--pink));
-  }
-
-  .cert-number {
-    text-align: right;
-    font-size: 11px;
-    color: var(--text-light);
-    margin-bottom: 10px;
-  }
-  .cert-title {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 24px;
-    font-weight: 900;
-    color: var(--purple-deep);
-    text-align: center;
-    letter-spacing: 6px;
-    margin-bottom: 20px;
-  }
-
-  .cert-person {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-  }
-  .cert-avatar {
-    width: 60px; height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2.5px solid var(--purple-light);
-    background: var(--lavender);
-    flex-shrink: 0;
-  }
-  .cert-person-info { flex: 1; }
-  .cert-person-role {
-    font-size: 11px;
-    color: var(--text-light);
-    margin-bottom: 2px;
-  }
-  .cert-person-name {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: 1px;
-  }
-
-  .cert-idol-avatar {
-    width: 50px; height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2.5px solid var(--pink-light);
-    background: #fce8f3;
-    flex-shrink: 0;
-    float: right;
-    margin: 0 0 8px 10px;
-  }
-
-  .cert-body {
-    font-size: 14px;
-    line-height: 1.9;
-    color: var(--text);
-    margin-bottom: 16px;
-    clear: both;
-  }
-  .cert-idol-name {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 17px;
-    font-weight: 900;
-    color: var(--text);
-    display: block;
-    margin: 4px 0;
-  }
-  .cert-legal {
-    font-size: 12px;
-    color: var(--text-light);
-    line-height: 1.7;
-  }
-
-  .cert-reason-section {
-    background: var(--lavender);
-    border-radius: 12px;
-    padding: 12px 14px;
-    margin: 14px 0;
-    border-left: 3px solid var(--purple-mid);
-  }
-  .cert-reason-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--purple-deep);
-    margin-bottom: 4px;
-  }
-  .cert-reason-text {
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.6;
-  }
-
-  .cert-footer {
-    margin-top: 16px;
-    position: relative;
-    padding-right: 100px;
-    min-height: 90px;
-  }
-  .cert-footer-line {
-    font-size: 13px;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-  .cert-footer-line span {
-    color: var(--purple-deep);
-    font-weight: 700;
-    border-bottom: 1px solid var(--purple-light);
-    padding-bottom: 1px;
-    margin-left: 4px;
-  }
-
-  /* STAMP */
-  .stamp {
-    position: absolute;
-    right: -8px; bottom: -8px;
-    width: 96px; height: 96px;
-    transform: rotate(-12deg);
-    opacity: 0.92;
-    pointer-events: none;
-  }
-  .stamp img {
-    width: 100%; height: 100%;
-    object-fit: contain;
-  }
-
-  /* ── DOWNLOAD ── */
-  .download-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 190px;
-    padding: 15px;
-    margin-top: 30px;
-    background: white;
-    border: 1px solid #EDD8F6;
-    border-radius: 14px;
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: #773DB5;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .download-btn:hover { background: var(--lavender); border-color: var(--purple-mid); }
-  .download-btn svg { width: 18px; height: 18px; fill: var(--purple-deep); }
-
-  /* ── ETHICS MODAL ── */
-  .modal-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(30,20,60,0.5);
-    z-index: 200;
-    align-items: center; justify-content: center;
-  }
-  .modal-overlay.show { display: flex; }
-  .modal {
-    background: white;
-    border-radius: 20px;
-    padding: 28px 22px;
-    max-width: 340px;
-    margin: 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-  }
-  .modal-title {
-    font-size: 18px; font-weight: 700; color: var(--purple-deep);
-    margin-bottom: 12px;
-  }
-  .modal-body {
-    font-size: 13px; color: var(--text-light); line-height: 1.8;
-    margin-bottom: 18px;
-  }
-  .modal-close {
-    width: 100%;
-    padding: 12px;
-    background: var(--lavender);
-    border: none;
-    border-radius: 10px;
-    font-family: 'Noto Sans TC', sans-serif;
-    font-size: 14px; font-weight: 700;
-    color: var(--purple-deep);
-    cursor: pointer;
-  }
-
-  /* ── FOOTER ── */
-  .site-footer {
-    text-align: center;
-    padding: 24px 20px;
-    font-size: 12px;
-    color: var(--text-light);
-  }
-
-  /* no-avatar fallback - 加入 Noto Color Emoji */
-  .avatar-placeholder, .idol-placeholder {
-    font-family: 'Noto Color Emoji', sans-serif;
-  }
-  .avatar-placeholder {
-    width: 60px; height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--purple-light), var(--pink-light));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
-  }
-  .idol-placeholder {
-    width: 50px; height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--pink-light), var(--purple-light));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
-    float: right;
-    margin: 0 0 8px 10px;
-    border: 2.5px solid var(--pink-light);
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>脫粉聲明書產生器</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header class="site-header">
-  <!-- [修改1] 加上 onclick="goHome()" -->
-  <div class="site-logo" onclick="goHome()">
-    <img src="logo.svg" alt="Logo" class="logo-image">
-    <span class="logo-text">脫粉聲明書</span>
-  </div>
-  <button class="ethics-badge" onclick="showEthics()">道德認證</button>
-</header>
+<div class="app">
 
-<div class="hero">
-  <h1 class="hero-title" id="hero-title">脫粉要有儀式感✦</h1>
-  <p class="hero-subtitle" id="hero-sub">讓每一次告別都值得被記念</p>
-  <div class="bubbles" id="hero-bubbles">
-    <div class="bubble bubble-left">歐爸當面說我是猩猩，所以我不開心。</div>
-    <div class="bubble bubble-right">我擔吃咖喱飯居然會辦在一起!!無法接受😭</div>
-  </div>
-</div>
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar">
+    <span class="navbar-title" id="navbar-title" style="cursor:pointer">✦ 脫粉聲明書產生器</span>
+    <span class="navbar-badge">道德認證</span>
+  </header>
 
-<div id="form-area">
-  <div class="form-section">
-    <div class="section-title">聲明人</div>
-    <div class="field-group">
-      <label class="field-label">聲明人暱稱 <span class="required">*</span></label>
-      <input type="text" id="user-name" placeholder="請輸入你的暱稱">
-    </div>
-    <div class="field-group">
-      <label class="field-label">脫粉日期時間 <span class="required">*</span></label>
-      <div class="datetime-wrap">
-        <input type="datetime-local" id="date-time">
-        <button class="reset-btn" onclick="resetDateTime()">此時此刻</button>
+  <!-- ===== FORM VIEW ===== -->
+  <div id="view-form" class="view active">
+    <div class="hero">
+      <h1 class="hero-title">脫粉，要有儀式感 ✦</h1>
+      <p class="hero-sub">讓每一次告別都值得被記念</p>
+      <div class="bubbles">
+        <div class="bubble bubble-1">歐爸當面說我是猩猩，所以我不開心。</div>
+        <div class="bubble bubble-2">我擔吃咖喱飯居然會辦在一起!!無法接受😭</div>
       </div>
     </div>
-    <div class="field-group">
-      <label class="field-label">大頭照（選填）</label>
-      <div class="photo-upload" id="user-photo-wrap">
-        <input type="file" accept="image/*" id="user-photo-input" onchange="previewPhoto('user')">
-        <div id="user-upload-ui">
-          <div class="upload-icon">＋</div>
-          <div class="upload-label">上傳照片</div>
+
+    <div class="form-area">
+      <!-- 聲明人 -->
+      <section class="card">
+        <div class="card-heading">聲明人</div>
+
+        <div class="field">
+          <label class="field-label">聲明人暱稱<span class="required">*</span></label>
+          <input id="input-nickname" class="field-input" type="text" placeholder="請輸入你的暱稱" maxlength="20" />
         </div>
-        <img id="user-photo-preview" class="photo-preview" alt="預覽">
-      </div>
-    </div>
-  </div>
 
-  <div class="form-section">
-    <div class="section-title">脫粉對象</div>
-    <div class="field-group">
-      <label class="field-label">脫粉的團體／藝人名稱 <span class="required">*</span></label>
-      <input type="text" id="idol-name" placeholder="例：某某偶像團體">
-    </div>
-    <div class="field-group">
-      <label class="field-label">團體照片（選填）</label>
-      <div class="photo-upload" id="idol-photo-wrap">
-        <input type="file" accept="image/*" id="idol-photo-input" onchange="previewPhoto('idol')">
-        <div id="idol-upload-ui">
-          <div class="upload-icon">＋</div>
-          <div class="upload-label">上傳照片</div>
+        <div class="field">
+          <label class="field-label">脫粉日期時間<span class="required">*</span></label>
+          <div class="datetime-row">
+            <input id="input-datetime" class="datetime-display" type="text" placeholder="選擇日期時間" readonly />
+            <button id="btn-reset-datetime" class="btn-reset" type="button">重設</button>
+          </div>
         </div>
-        <img id="idol-photo-preview" class="photo-preview" alt="預覽">
+
+        <div class="field">
+          <label class="field-label">大頭照 <span class="optional">(選填)</span></label>
+          <label class="upload-area" for="upload-avatar">
+            <input id="upload-avatar" type="file" accept="image/*" hidden />
+            <div class="upload-placeholder" id="avatar-placeholder">
+              <span class="upload-icon">＋</span>
+              <span>上傳照片</span>
+            </div>
+            <img id="avatar-preview" class="upload-preview" style="display:none" alt="大頭照預覽" />
+          </label>
+        </div>
+      </section>
+
+      <!-- 脫粉對象 -->
+      <section class="card">
+        <div class="card-heading">脫粉對象</div>
+
+        <div class="field">
+          <label class="field-label">脫粉的團體 / 藝人名稱<span class="required">*</span></label>
+          <input id="input-idol" class="field-input" type="text" placeholder="例: 某某偶像團體" maxlength="50" />
+        </div>
+
+        <div class="field">
+          <label class="field-label">團體照片 <span class="optional">(選填，會加上 ✕)</span></label>
+          <label class="upload-area" for="upload-group">
+            <input id="upload-group" type="file" accept="image/*" hidden />
+            <div class="upload-placeholder" id="group-placeholder">
+              <span class="upload-icon">＋</span>
+              <span>上傳照片</span>
+            </div>
+            <img id="group-preview" class="upload-preview" style="display:none" alt="團體照預覽" />
+          </label>
+        </div>
+
+        <div class="field">
+          <label class="field-label">脫粉理由 <span class="optional">(選填)</span></label>
+          <div class="tags" id="reason-tags">
+            <button class="tag" data-value="對象是拌咖哩派" type="button">對象是拌咖哩派</button>
+            <button class="tag" data-value="荷包比腿瘦" type="button">荷包比腿瘦</button>
+            <button class="tag" data-value="新坑已入" type="button">新坑已入</button>
+            <button class="tag" data-value="粉籍到期" type="button">粉籍到期</button>
+            <button class="tag" data-value="理性脫粉" type="button">理性脫粉</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">補充說明 <span class="optional">(選填)</span></label>
+          <textarea id="input-note" class="field-textarea" placeholder="可自行填寫脫粉理由、心路歷程或告別宣言..." rows="4"></textarea>
+        </div>
+      </section>
+
+      <button id="btn-generate" class="btn-generate" type="button">✦ 生成脫粉說明書 ✦</button>
+    </div>
+  </div>
+
+  <!-- ===== RESULT VIEW ===== -->
+  <div id="view-result" class="view">
+    <div class="hero">
+      <h1 class="hero-title">脫粉，要有儀式感 ✦</h1>
+      <p class="hero-sub">親愛的這是一個無比艱難的決定</p>
+      <div class="bubbles">
+        <div class="bubble bubble-1">歐爸當面說我是猩猩，所以我不開心。</div>
+        <div class="bubble bubble-2">我擔吃咖喱飯居然會辦在一起!!無法接受😭</div>
       </div>
     </div>
-    <div class="field-group">
-      <label class="field-label">脫粉理由（選填）</label>
-      <div class="tags-wrap" id="reason-tags">
-        <div class="tag" onclick="toggleTag(this)">對象是拌咖哩派</div>
-        <div class="tag" onclick="toggleTag(this)">荷包比腿瘦</div>
-        <div class="tag" onclick="toggleTag(this)">新坑已入</div>
-        <div class="tag" onclick="toggleTag(this)">粉籍到期</div>
-        <div class="tag" onclick="toggleTag(this)">理性脫粉</div>
-        <div class="tag" onclick="toggleTag(this)">暫時離開</div>
-        
+
+    <!-- 隱藏的 HTML 聲明書（用於 html2canvas 渲染） -->
+    <div class="cert-render-offscreen">
+      <div class="cert" id="certificate">
+        <span class="cert-no" id="cert-no">No.000000</span>
+        <h2 class="cert-title">脫粉聲明書</h2>
+
+        <div class="cert-section cert-declarer">
+          <div class="cert-avatar-wrap">
+            <img id="cert-avatar" class="cert-avatar" src="" alt="大頭照" style="display:none" />
+            <div class="cert-avatar-empty" id="cert-avatar-empty"></div>
+          </div>
+          <div class="cert-declarer-info">
+            <div class="cert-label">聲明人</div>
+            <div class="cert-name" id="cert-name">—</div>
+          </div>
+        </div>
+
+        <div class="cert-section cert-body">
+          <div class="cert-group-wrap">
+            <img id="cert-group" class="cert-group-img" src="" alt="團體照" style="display:none" />
+            <div class="cert-group-empty" id="cert-group-empty"></div>
+            <div class="cert-x-mark" id="cert-x-mark" style="display:none">✕</div>
+          </div>
+          <p class="cert-text">茲 聲明：本人自今日起，正式解除與</p>
+          <p class="cert-idol" id="cert-idol">【　】</p>
+          <p class="cert-text cert-text-long">之粉絲關係。本聲明一經發佈即刻生效，具完整道德效力，任何人不得以任何形式要求本人重返粉籍，亦不得對本人之脫粉行為提出異議。</p>
+        </div>
+
+        <div class="cert-section cert-reason-section">
+          <div class="cert-label">脫粉理由</div>
+          <p class="cert-reason-text" id="cert-reason">—</p>
+        </div>
+
+        <div class="cert-section cert-footer">
+          <div class="cert-footer-line">
+            <span class="cert-label">聲明日期：</span>
+            <span class="cert-footer-value" id="cert-date">—</span>
+          </div>
+          <div class="cert-footer-line">
+            <span class="cert-label">聲明人簽署：</span>
+            <span class="cert-footer-value" id="cert-sig">—</span>
+          </div>
+          <div class="cert-stamp">
+            <div class="stamp-inner">
+              <div class="stamp-text">正式<br>脫粉</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="field-group">
-      <label class="field-label">補充說明（選填）</label>
-      <textarea id="extra-note" placeholder="可自行填寫脫粉理由、心路歷程或告別宣言…"></textarea>
-    </div>
-  </div>
-</div>
 
-<button class="generate-btn" onclick="generate()">✦ 生成脫粉聲明書 ✦</button>
+    <!-- 可右鍵儲存的聲明書圖片 -->
+    <div class="cert-wrapper">
+      <div id="cert-loading" class="cert-loading">產生中...</div>
+      <img id="cert-display-img" class="cert-display-img" style="display:none" alt="脫粉聲明書（可右鍵儲存）" />
+    </div>
 
-<div class="result-section" id="result-section">
-  <!-- [修改2] Hi 訊息區塊 -->
-  <div class="result-greeting">
-    Hi <span class="greeting-name" id="greeting-name"></span>，您的聲明書已完成...<br>
-    <span style="font-size:13px;font-weight:400;color:var(--text-light);">請右鍵 → 儲存圖片或是點擊下載按鈕</span>
-  </div>
+    <p class="result-hint">右鍵 → 儲存圖片或是點擊下載按鈕</p>
 
-  <div id="certificate">
-    <div class="cert-number" id="cert-number">No.000000</div>
-    <div class="cert-title">脫 粉 聲 明 書</div>
-    <div class="cert-person">
-      <div id="cert-avatar-area"></div>
-      <div class="cert-person-info">
-        <div class="cert-person-role">聲明人</div>
-        <div class="cert-person-name" id="cert-username"></div>
-      </div>
-    </div>
-    <div class="cert-body">
-      <div id="cert-idol-avatar-area"></div>
-      茲聲明：本人自今日起，正式解除與<br>
-      <span class="cert-idol-name" id="cert-idol-name"></span>
-      之粉絲關係。本聲明一經發佈即刻生效，具完整道德效力，任何人不得以任何形式要求本人重返粉籍，亦不得對本人之脫粉行為提出異議。
-    </div>
-    <div class="cert-reason-section" id="cert-reason-section" style="display:none">
-      <div class="cert-reason-label">脫粉理由</div>
-      <div class="cert-reason-text" id="cert-reason-text"></div>
-    </div>
-    <div class="cert-footer">
-      <div class="cert-footer-line">聲明日期：<span id="cert-date"></span></div>
-      <div class="cert-footer-line">聲明人簽署：<span id="cert-sign"></span></div>
-      <div class="stamp">
-        <img src="seal.png" class="seal-img" onerror="this.src='https://api.iconify.design/emojione:v-sign.svg'">
-      </div>
+    <div class="result-actions">
+      <button id="btn-download" class="btn-download" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3v13M7 11l5 5 5-5M3 20h18"/>
+        </svg>
+        下載聲明書
+      </button>
+      <button id="btn-back" class="btn-back" type="button">← 返回修改</button>
     </div>
   </div>
 
-  <div id="cert-image-wrap" style="display:none;">
-    <img id="cert-img" style="width:100%;border-radius:20px;box-shadow:0 12px 40px rgba(124,92,191,0.18);" alt="脫粉聲明書">
-  </div>
-  
-  <button class="download-btn" onclick="downloadCert()">
-    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5z"/></svg>
-    下載聲明書
-  </button>
-</div>
+</div><!-- /.app -->
 
-<div class="site-footer">✦ 脫粉聲明書產生器 · 讓每次告別都有儀式感 ✦</div>
-
-<div class="modal-overlay" id="ethics-modal" onclick="closeEthics(event)">
-  <div class="modal">
-    <div class="modal-title">🌟 道德認證說明</div>
-    <div class="modal-body">
-      本產生器已通過「任性但不殘忍」道德審查。<br><br>
-      · 脫粉是每位粉絲的自由與權利<br>
-      · 聲明書僅供娛樂，不具任何法律效力<br>
-      · 請理性脫粉，善待自己與他人<br>
-      · 本網站不收集任何個人資料<br><br>
-      祝脫粉順利，前途光明 ✨
-    </div>
-    <button class="modal-close" onclick="closeEthics()">了解！感謝認證</button>
-  </div>
-</div>
-
-<script>
-  function setNow() {
-    const now = new Date();
-    const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
-    document.getElementById('date-time').value = local.toISOString().slice(0, 16);
-  }
-  function resetDateTime() { setNow(); }
-  setNow();
-
-  let userPhotoData = null;
-  let idolPhotoData = null;
-
-  function previewPhoto(type) {
-    const input = document.getElementById(type + '-photo-input');
-    const preview = document.getElementById(type + '-photo-preview');
-    const ui = document.getElementById(type + '-upload-ui');
-    const file = input.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      preview.src = e.target.result;
-      preview.style.display = 'block';
-      ui.style.display = 'none';
-      if (type === 'user') userPhotoData = e.target.result;
-      else idolPhotoData = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-
-  function toggleTag(el) { el.classList.toggle('selected'); }
-
-  function getSelectedTags() {
-    return [...document.querySelectorAll('#reason-tags .tag.selected')]
-      .map(t => t.textContent).join('、');
-  }
-
-  function formatDate(val) {
-    if (!val) return '';
-    const d = new Date(val);
-    const y = d.getFullYear();
-    const mo = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    const h = String(d.getHours()).padStart(2, '0');
-    const m = String(d.getMinutes()).padStart(2, '0');
-    return `${y}/${mo}/${day} ${h}:${m}`;
-  }
-
-  function generate() {
-    const userName = document.getElementById('user-name').value.trim();
-    const idolName = document.getElementById('idol-name').value.trim();
-    const dateVal = document.getElementById('date-time').value;
-    const extra = document.getElementById('extra-note').value.trim();
-
-    if (!userName) { alert('請輸入聲明人暱稱！'); return; }
-    if (!idolName) { alert('請輸入脫粉對象名稱！'); return; }
-
-    document.getElementById('cert-number').textContent = 'No.' + String(Math.floor(100000 + Math.random() * 900000));
-    document.getElementById('cert-username').textContent = userName;
-    document.getElementById('cert-sign').textContent = userName;
-    document.getElementById('cert-idol-name').textContent = `【 ${idolName} 】`;
-    document.getElementById('cert-date').textContent = formatDate(dateVal) || formatDate(new Date().toISOString().slice(0,16));
-
-    // [修改2] 填入 Hi 訊息的名字
-    document.getElementById('greeting-name').textContent = userName;
-
-    const avatarArea = document.getElementById('cert-avatar-area');
-    if (userPhotoData) {
-      avatarArea.innerHTML = `<img src="${userPhotoData}" class="cert-avatar" alt="聲明人">`;
-    } else {
-      avatarArea.innerHTML = `<div class="avatar-placeholder">👤</div>`;
-    }
-
-    const idolAvatarArea = document.getElementById('cert-idol-avatar-area');
-    if (idolPhotoData) {
-      idolAvatarArea.innerHTML = `<img src="${idolPhotoData}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;border:2.5px solid var(--pink-light);float:right;margin:0 0 8px 10px;" alt="脫粉對象">`;
-    } else {
-      idolAvatarArea.innerHTML = `<div class="idol-placeholder">⭐</div>`;
-    }
-
-    const tags = getSelectedTags();
-    let reasonParts = [];
-    if (tags) reasonParts.push(tags);
-    if (extra) reasonParts.push(extra);
-    const reasonSection = document.getElementById('cert-reason-section');
-    if (reasonParts.length > 0) {
-      document.getElementById('cert-reason-text').textContent = reasonParts.join('，');
-      reasonSection.style.display = 'block';
-    } else {
-      reasonSection.style.display = 'none';
-    }
-
-    document.getElementById('result-section').classList.add('show');
-    document.getElementById('form-area').style.display = 'none';
-    document.querySelector('.generate-btn').style.display = 'none';
-    document.getElementById('hero-title').style.display = 'none';
-    document.getElementById('hero-sub').style.display = 'none';
-    document.getElementById('hero-bubbles').style.display = 'none';
-
-    setTimeout(() => {
-  document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
-
-  const cert = document.getElementById('certificate');
-  html2canvas(cert, {
-    scale: 3,
-    useCORS: true,
-    allowTaint: true,
-    backgroundColor: '#ffffff',
-    logging: false
-  }).then(canvas => {
-    const imgSrc = canvas.toDataURL('image/png');
-    const certImg = document.getElementById('cert-img');
-    certImg.src = imgSrc;
-
-    // 隱藏原始 HTML 憑證，改顯示圖片版本
-    cert.style.display = 'none';
-    document.getElementById('cert-image-wrap').style.display = 'block';
-
-    // 更新下載按鈕
-    certImg.dataset.download = imgSrc;
-  });
-}, 100);
-  }
-
-  // [修改1] 點 logo 回到表單頁面
-  function goHome() {
-    document.getElementById('result-section').classList.remove('show');
-    document.getElementById('form-area').style.display = 'block';
-    document.querySelector('.generate-btn').style.display = 'block';
-    document.getElementById('hero-title').style.display = '';
-    document.getElementById('hero-sub').style.display = '';
-    document.getElementById('hero-bubbles').style.display = '';
-    document.getElementById('hero-sub').textContent = '讓每一次告別都值得被記念';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.getElementById('certificate').style.display = 'block';
-    document.getElementById('cert-image-wrap').style.display = 'none';
-    document.getElementById('cert-img').src = '';
-  }
-
-  function downloadCert() {
-  const certImg = document.getElementById('cert-img');
-  if (certImg && certImg.src) {
-    const link = document.createElement('a');
-    link.download = '脫粉聲明書.png';
-    link.href = certImg.src;
-    link.click();
-  } else {
-    // fallback：重新渲染
-    const cert = document.getElementById('certificate');
-    html2canvas(cert, { scale: 3, useCORS: true, backgroundColor: '#ffffff' }).then(canvas => {
-      const link = document.createElement('a');
-      link.download = '脫粉聲明書.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    });
-  }
-}
-
-  function showEthics() {
-    document.getElementById('ethics-modal').classList.add('show');
-  }
-  function closeEthics(e) {
-    if (!e || e.target.id === 'ethics-modal' || e.currentTarget === document.querySelector('.modal-close')) {
-      document.getElementById('ethics-modal').classList.remove('show');
-    }
-  }
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/zh-tw.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
