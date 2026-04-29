@@ -706,6 +706,11 @@
       </div>
     </div>
   </div>
+
+  <div id="cert-image-wrap" style="display:none;">
+    <img id="cert-img" style="width:100%;border-radius:20px;box-shadow:0 12px 40px rgba(124,92,191,0.18);" alt="脫粉聲明書">
+  </div>
+  
   <button class="download-btn" onclick="downloadCert()">
     <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5z"/></svg>
     下載聲明書
@@ -828,8 +833,28 @@
     document.getElementById('hero-bubbles').style.display = 'none';
 
     setTimeout(() => {
-      document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+  document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
+
+  const cert = document.getElementById('certificate');
+  html2canvas(cert, {
+    scale: 3,
+    useCORS: true,
+    allowTaint: true,
+    backgroundColor: '#ffffff',
+    logging: false
+  }).then(canvas => {
+    const imgSrc = canvas.toDataURL('image/png');
+    const certImg = document.getElementById('cert-img');
+    certImg.src = imgSrc;
+
+    // 隱藏原始 HTML 憑證，改顯示圖片版本
+    cert.style.display = 'none';
+    document.getElementById('cert-image-wrap').style.display = 'block';
+
+    // 更新下載按鈕
+    certImg.dataset.download = imgSrc;
+  });
+}, 100);
   }
 
   // [修改1] 點 logo 回到表單頁面
@@ -842,24 +867,29 @@
     document.getElementById('hero-bubbles').style.display = '';
     document.getElementById('hero-sub').textContent = '讓每一次告別都值得被記念';
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('certificate').style.display = 'block';
+    document.getElementById('cert-image-wrap').style.display = 'none';
+    document.getElementById('cert-img').src = '';
   }
 
   function downloadCert() {
+  const certImg = document.getElementById('cert-img');
+  if (certImg && certImg.src) {
+    const link = document.createElement('a');
+    link.download = '脫粉聲明書.png';
+    link.href = certImg.src;
+    link.click();
+  } else {
+    // fallback：重新渲染
     const cert = document.getElementById('certificate');
-    // 在 html2canvas 設定中強制跨域與背景色
-    html2canvas(cert, {
-      scale: 3,
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: '#ffffff',
-      logging: false
-    }).then(canvas => {
+    html2canvas(cert, { scale: 3, useCORS: true, backgroundColor: '#ffffff' }).then(canvas => {
       const link = document.createElement('a');
       link.download = '脫粉聲明書.png';
       link.href = canvas.toDataURL('image/png');
       link.click();
     });
   }
+}
 
   function showEthics() {
     document.getElementById('ethics-modal').classList.add('show');
