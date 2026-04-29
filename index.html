@@ -51,23 +51,24 @@
     z-index: 100;
   }
   .site-logo {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* 圖片與文字之間的距離 */
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 圖片與文字之間的距離 */
+    cursor: pointer; /* [修改1] 加上指標樣式 */
   }
   .logo-image {
-  height: 30px; /* 這裡設定 logo 的高度，你可以根據你的圖片形狀手動調整 */
-  width: auto; /* 寬度自動，保持比例 */
-  object-fit: contain;
+    height: 30px; /* 這裡設定 logo 的高度，你可以根據你的圖片形狀手動調整 */
+    width: auto; /* 寬度自動，保持比例 */
+    object-fit: contain;
   }
   .logo-text {
-  font-size: 15px;
-  font-weight: 700;
-  /* 這裡保留原本的漸層顏色效果 */
-  background: linear-gradient(135deg, #A959FF, #FF54DA);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+    font-size: 15px;
+    font-weight: 700;
+    /* 這裡保留原本的漸層顏色效果 */
+    background: linear-gradient(135deg, #A959FF, #FF54DA);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   .ethics-badge {
     font-size: 12px;
@@ -333,6 +334,23 @@
   }
   .result-section.show { display: block; }
 
+  /* [修改2] Hi 訊息區塊 */
+  .result-greeting {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--purple-deep);
+    background: var(--lavender);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 16px;
+    line-height: 1.7;
+    letter-spacing: 0.3px;
+  }
+  .result-greeting .greeting-name {
+    color: var(--pink);
+    font-weight: 700;
+  }
+
   /* ── CERTIFICATE ── */
   #certificate {
     background: white;
@@ -580,7 +598,8 @@
 <body>
 
 <header class="site-header">
-  <div class="site-logo">
+  <!-- [修改1] 加上 onclick="goHome()" -->
+  <div class="site-logo" onclick="goHome()">
     <img src="logo.svg" alt="Logo" class="logo-image">
     <span class="logo-text">脫粉聲明書</span>
   </div>
@@ -588,9 +607,9 @@
 </header>
 
 <div class="hero">
-  <h1 class="hero-title">脫粉，要有儀式感 ✦</h1>
+  <h1 class="hero-title" id="hero-title">脫粉，要有儀式感 ✦</h1>
   <p class="hero-subtitle" id="hero-sub">讓每一次告別都值得被記念</p>
-  <div class="bubbles">
+  <div class="bubbles" id="hero-bubbles">
     <div class="bubble bubble-left">歐爸當面說我是猩猩，所以我不開心。</div>
     <div class="bubble bubble-right">我擔吃咖喱飯居然會辦在一起!!無法接受😭</div>
   </div>
@@ -660,6 +679,12 @@
 <button class="generate-btn" onclick="generate()">✦ 生成脫粉說明書 ✦</button>
 
 <div class="result-section" id="result-section">
+  <!-- [修改2] Hi 訊息區塊 -->
+  <div class="result-greeting">
+    Hi <span class="greeting-name" id="greeting-name"></span>，您的聲明書已完成 ✦<br>
+    <span style="font-size:13px;font-weight:400;color:var(--text-light);">請儲存或下載，讓這份告別正式生效。</span>
+  </div>
+
   <div id="certificate">
     <div class="cert-number" id="cert-number">No.000000</div>
     <div class="cert-title">脫 粉 聲 明 書</div>
@@ -774,6 +799,9 @@
     document.getElementById('cert-idol-name').textContent = `【 ${idolName} 】`;
     document.getElementById('cert-date').textContent = formatDate(dateVal) || formatDate(new Date().toISOString().slice(0,16));
 
+    // [修改2] 填入 Hi 訊息的名字
+    document.getElementById('greeting-name').textContent = userName;
+
     const avatarArea = document.getElementById('cert-avatar-area');
     if (userPhotoData) {
       avatarArea.innerHTML = `<img src="${userPhotoData}" class="cert-avatar" alt="聲明人">`;
@@ -803,11 +831,25 @@
     document.getElementById('result-section').classList.add('show');
     document.getElementById('form-area').style.display = 'none';
     document.querySelector('.generate-btn').style.display = 'none';
-    document.getElementById('hero-sub').textContent = '親愛的這是一個無比艱難的決定';
+    document.getElementById('hero-title').style.display = 'none';
+    document.getElementById('hero-sub').style.display = 'none';
+    document.getElementById('hero-bubbles').style.display = 'none';
 
     setTimeout(() => {
       document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
     }, 100);
+  }
+
+  // [修改1] 點 logo 回到表單頁面
+  function goHome() {
+    document.getElementById('result-section').classList.remove('show');
+    document.getElementById('form-area').style.display = 'block';
+    document.querySelector('.generate-btn').style.display = 'block';
+    document.getElementById('hero-title').style.display = '';
+    document.getElementById('hero-sub').style.display = '';
+    document.getElementById('hero-bubbles').style.display = '';
+    document.getElementById('hero-sub').textContent = '讓每一次告別都值得被記念';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function downloadCert() {
