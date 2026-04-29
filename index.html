@@ -497,12 +497,6 @@
   }
 
   /* ── DOWNLOAD ── */
-  .download-hint {
-    text-align: center;
-    font-size: 12px;
-    color: var(--text-light);
-    margin: 14px 0 10px;
-  }
   .download-btn {
     display: flex;
     align-items: center;
@@ -674,13 +668,13 @@
   </div>
 </div>
 
-<button class="generate-btn" onclick="generate()">✦ 生成脫粉說明書 ✦</button>
+<button class="generate-btn" onclick="generate()">✦ 生成脫粉聲明書 ✦</button>
 
 <div class="result-section" id="result-section">
   <!-- [修改2] Hi 訊息區塊 -->
   <div class="result-greeting">
-    Hi <span class="greeting-name" id="greeting-name"></span>，您的聲明書已完成 ✦<br>
-    <span style="font-size:13px;font-weight:400;color:var(--text-light);">請儲存或下載，讓這份告別正式生效。</span>
+    Hi <span class="greeting-name" id="greeting-name"></span>，您的聲明書已完成...<br>
+    <span style="font-size:13px;font-weight:400;color:var(--text-light);">請右鍵 → 儲存圖片或是點擊下載按鈕</span>
   </div>
 
   <div id="certificate">
@@ -711,7 +705,6 @@
       </div>
     </div>
   </div>
-  <p class="download-hint">右鍵 → 儲存圖片或是點擊下載按鈕</p>
   <button class="download-btn" onclick="downloadCert()">
     <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5z"/></svg>
     下載聲明書
