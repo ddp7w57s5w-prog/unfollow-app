@@ -15,10 +15,27 @@
 <div class="app">
 
   <!-- ===== NAVBAR ===== -->
-  <header class="navbar">
-    <span class="navbar-title" id="navbar-title" style="cursor:pointer">✦ 脫粉聲明書產生器</span>
-    <span class="navbar-badge">道德認證</span>
-  </header>
+<header class="navbar">
+  <span class="navbar-title" id="navbar-title" style="cursor:pointer">✦ 脫粉聲明書產生器</span>
+  
+  <!-- 漢堡選單按鈕 -->
+  <div class="menu-container">
+    <button class="menu-toggle" id="menu-toggle" aria-label="選單">
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    
+    <!-- 下拉選單內容 -->
+    <nav class="dropdown-menu" id="dropdown-menu">
+      <a href="#" class="menu-item">脫粉聲明書</a>
+      <a href="https://9am-lab.github.io/fan-leave-kit/" class="menu-item">粉絲請假卡</a>
+      <a href="https://youtu.be/dQw4w9WgXcQ?si=LwywdTrFjH0qwSkK" class="menu-item">點我</a>
+    </nav>
+  </div>
+</header>
 
   <!-- ===== FORM VIEW ===== -->
   <div id="view-form" class="view active">
