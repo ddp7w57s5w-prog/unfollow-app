@@ -41,6 +41,12 @@ body { min-height: 100%; background: #e8e0f0; font-family: var(--font-sans); -we
   border-bottom: 1px solid #efefef;
 }
 
+.navbar-logo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
 .navbar-title {
   background: linear-gradient(90deg, #a959ff, #ff54da);
   -webkit-background-clip: text;
@@ -48,6 +54,7 @@ body { min-height: 100%; background: #e8e0f0; font-family: var(--font-sans); -we
   background-clip: text;
   font-weight: 700;
   font-size: 15px;
+  white-space: nowrap;
 }
 
 /* 漢堡選單組件 */
