@@ -243,3 +243,30 @@ btnDownload.addEventListener('click', () => {
 [inputNickname, inputIdol].forEach(el => {
   el.addEventListener('input', () => el.classList.remove('error'));
 });
+
+// ── Navbar Menu Logic ──
+const menuToggle = document.getElementById('menu-toggle');
+const dropdownMenu = document.getElementById('dropdown-menu');
+
+// 切換選單開關
+menuToggle.addEventListener('click', (e) => {
+  e.stopPropagation();
+  menuToggle.classList.toggle('active');
+  dropdownMenu.classList.toggle('active');
+});
+
+// 點擊選單外部自動關閉
+document.addEventListener('click', (e) => {
+  if (!menuToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+    menuToggle.classList.remove('active');
+    dropdownMenu.classList.remove('active');
+  }
+});
+
+// 點擊選單項目後自動關閉
+document.querySelectorAll('.menu-item').forEach(item => {
+  item.addEventListener('click', () => {
+    menuToggle.classList.remove('active');
+    dropdownMenu.classList.remove('active');
+  });
+});
