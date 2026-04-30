@@ -15,27 +15,27 @@
 <div class="app">
 
   <!-- ===== NAVBAR ===== -->
-<header class="navbar">
-  <span class="navbar-title" id="navbar-title" style="cursor:pointer">✦ 脫粉聲明書產生器</span>
-  
-  <!-- 漢堡選單按鈕 -->
-  <div class="menu-container">
-    <button class="menu-toggle" id="menu-toggle" aria-label="選單">
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </button>
+  <header class="navbar">
+    <span class="navbar-title" id="navbar-title" style="cursor:pointer">✦ 脫粉聲明書產生器</span>
     
-    <!-- 下拉選單內容 -->
-    <nav class="dropdown-menu" id="dropdown-menu">
-      <a href="#" class="menu-item">脫粉聲明書</a>
-      <a href="https://9am-lab.github.io/fan-leave-kit/" class="menu-item">粉絲請假卡</a>
-      <a href="https://youtu.be/dQw4w9WgXcQ?si=LwywdTrFjH0qwSkK" class="menu-item">點我</a>
-    </nav>
-  </div>
-</header>
+    <!-- 漢堡選單容器 -->
+    <div class="menu-container">
+      <button class="menu-toggle" id="menu-toggle" aria-label="選單">
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+      
+      <!-- 下拉選單內容 -->
+      <nav class="dropdown-menu" id="dropdown-menu">
+        <a href="這裡填入連結1" class="menu-item">選單連結一</a>
+        <a href="這裡填入連結2" class="menu-item">選單連結二</a>
+        <a href="這裡填入連結3" class="menu-item">選單連結三</a>
+      </nav>
+    </div>
+  </header>
 
   <!-- ===== FORM VIEW ===== -->
   <div id="view-form" class="view active">
@@ -49,15 +49,12 @@
     </div>
 
     <div class="form-area">
-      <!-- 聲明人 -->
       <section class="card">
         <div class="card-heading">聲明人</div>
-
         <div class="field">
           <label class="field-label">聲明人暱稱<span class="required">*</span></label>
           <input id="input-nickname" class="field-input" type="text" placeholder="請輸入你的暱稱" maxlength="20" />
         </div>
-
         <div class="field">
           <label class="field-label">脫粉日期時間<span class="required">*</span></label>
           <div class="datetime-row">
@@ -65,7 +62,6 @@
             <button id="btn-reset-datetime" class="btn-reset" type="button">重設</button>
           </div>
         </div>
-
         <div class="field">
           <label class="field-label">大頭照 <span class="optional">(選填)</span></label>
           <label class="upload-area" for="upload-avatar">
@@ -79,15 +75,12 @@
         </div>
       </section>
 
-      <!-- 脫粉對象 -->
       <section class="card">
         <div class="card-heading">脫粉對象</div>
-
         <div class="field">
           <label class="field-label">脫粉的團體 / 藝人名稱<span class="required">*</span></label>
           <input id="input-idol" class="field-input" type="text" placeholder="例: 某某偶像團體" maxlength="50" />
         </div>
-
         <div class="field">
           <label class="field-label">團體照片 <span class="optional">(選填，會加上 ✕)</span></label>
           <label class="upload-area" for="upload-group">
@@ -99,7 +92,6 @@
             <img id="group-preview" class="upload-preview" style="display:none" alt="團體照預覽" />
           </label>
         </div>
-
         <div class="field">
           <label class="field-label">脫粉理由 <span class="optional">(選填)</span></label>
           <div class="tags" id="reason-tags">
@@ -110,7 +102,6 @@
             <button class="tag" data-value="理性脫粉" type="button">理性脫粉</button>
           </div>
         </div>
-
         <div class="field">
           <label class="field-label">補充說明 <span class="optional">(選填)</span></label>
           <textarea id="input-note" class="field-textarea" placeholder="可自行填寫脫粉理由、心路歷程或告別宣言..." rows="4"></textarea>
@@ -126,18 +117,12 @@
     <div class="hero">
       <h1 class="hero-title">脫粉，要有儀式感 ✦</h1>
       <p class="hero-sub">親愛的這是一個無比艱難的決定</p>
-      <div class="bubbles">
-        <div class="bubble bubble-1">歐爸當面說我是猩猩，所以我不開心。</div>
-        <div class="bubble bubble-2">我擔吃咖喱飯居然會辦在一起!!無法接受😭</div>
-      </div>
     </div>
 
-    <!-- 隱藏的 HTML 聲明書（用於 html2canvas 渲染） -->
     <div class="cert-render-offscreen">
       <div class="cert" id="certificate">
         <span class="cert-no" id="cert-no">No.000000</span>
         <h2 class="cert-title">脫粉聲明書</h2>
-
         <div class="cert-section cert-declarer">
           <div class="cert-avatar-wrap">
             <img id="cert-avatar" class="cert-avatar" src="" alt="大頭照" style="display:none" />
@@ -148,7 +133,6 @@
             <div class="cert-name" id="cert-name">—</div>
           </div>
         </div>
-
         <div class="cert-section cert-body">
           <div class="cert-group-wrap">
             <img id="cert-group" class="cert-group-img" src="" alt="團體照" style="display:none" />
@@ -159,12 +143,10 @@
           <p class="cert-idol" id="cert-idol">【　】</p>
           <p class="cert-text cert-text-long">之粉絲關係。本聲明一經發佈即刻生效，具完整道德效力，任何人不得以任何形式要求本人重返粉籍，亦不得對本人之脫粉行為提出異議。</p>
         </div>
-
         <div class="cert-section cert-reason-section">
           <div class="cert-label">脫粉理由</div>
           <p class="cert-reason-text" id="cert-reason">—</p>
         </div>
-
         <div class="cert-section cert-footer">
           <div class="cert-footer-line">
             <span class="cert-label">聲明日期：</span>
@@ -183,26 +165,20 @@
       </div>
     </div>
 
-    <!-- 可右鍵儲存的聲明書圖片 -->
     <div class="cert-wrapper">
       <div id="cert-loading" class="cert-loading">產生中...</div>
-      <img id="cert-display-img" class="cert-display-img" style="display:none" alt="脫粉聲明書（可右鍵儲存）" />
+      <img id="cert-display-img" class="cert-display-img" style="display:none" alt="脫粉聲明書" />
     </div>
 
     <p class="result-hint">右鍵 → 儲存圖片或是點擊下載按鈕</p>
 
     <div class="result-actions">
-      <button id="btn-download" class="btn-download" type="button">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 3v13M7 11l5 5 5-5M3 20h18"/>
-        </svg>
-        下載聲明書
-      </button>
+      <button id="btn-download" class="btn-download" type="button">下載聲明書</button>
       <button id="btn-back" class="btn-back" type="button">← 返回修改</button>
     </div>
   </div>
 
-</div><!-- /.app -->
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
