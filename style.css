@@ -41,10 +41,16 @@ body { min-height: 100%; background: #e8e0f0; font-family: var(--font-sans); -we
   border-bottom: 1px solid #efefef;
 }
 
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
 .navbar-logo {
   height: 32px;
   width: auto;
   object-fit: contain;
+  margin-right: 8px;
 }
 
 .navbar-title {
